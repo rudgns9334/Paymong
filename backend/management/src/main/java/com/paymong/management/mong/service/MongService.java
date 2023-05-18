@@ -299,25 +299,25 @@ public class MongService {
         int tier = Integer.parseInt(mong.getCode().substring(3,4));
 
         if(tier == 3){
-            if(point >= 50000){
+            if(point >= 5000){
                 findMongLevelCodeDto.setTier(3);
             }else{
                 findMongLevelCodeDto.setTier(2);
             }
         }else if(tier == 2){
-            if(point >= 40000){
+            if(point >= 4000){
                 findMongLevelCodeDto.setTier(2);
             }else{
                 findMongLevelCodeDto.setTier(1);
             }
         }else if(tier == 1){
-            if(point >= 30000){
+            if(point >= 3000){
                 findMongLevelCodeDto.setTier(1);
             }else{
                 findMongLevelCodeDto.setTier(0);
             }
         }else if(tier == 0){
-            if(point >= 20000){
+            if(point >= 2000){
                 findMongLevelCodeDto.setTier(0);
             }else{
                 findMongLevelCodeDto.setTier(0);
