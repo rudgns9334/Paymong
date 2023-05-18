@@ -181,6 +181,9 @@ public class MongController {
         }catch (NullPointerException e){
             LOGGER.info("code : {}, message : {}", ManagementStateCode.NULL_POINT.getCode(), ManagementStateCode.NULL_POINT.name());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ManagementStateCode.NULL_POINT));
+        } catch (NotFoundMongException e) {
+            LOGGER.info("code : {}, message : {}", ManagementStateCode.NOT_FOUND.getCode(), ManagementStateCode.NOT_FOUND.name());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ManagementStateCode.NOT_FOUND));
         }
     }
 
@@ -201,5 +204,17 @@ public class MongController {
             LOGGER.info("code : {}, message : {}", ManagementStateCode.NULL_POINT.getCode(), ManagementStateCode.NULL_POINT.name());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ManagementStateCode.NULL_POINT));
         }
+    }
+
+    @GetMapping("/admin/change/state")
+    public ResponseEntity<Object> changeState(AdminStateDto adminStateDto){
+        mongService.changeState(adminStateDto);
+        return ResponseEntity.ok().body(new ErrorResponse(ManagementStateCode.SUCCESS));
+    }
+
+    @GetMapping("/admin/change/poop")
+    public ResponseEntity<Object> changeState(AdminPoopDto adminPoopDto){
+        mongService.changePoop(adminPoopDto);
+        return ResponseEntity.ok().body(new ErrorResponse(ManagementStateCode.SUCCESS));
     }
 }

@@ -5,6 +5,7 @@ import com.paymong.management.global.exception.NotFoundMongException;
 import com.paymong.management.global.scheduler.SleepScheduler;
 import com.paymong.management.mong.entity.Mong;
 import com.paymong.management.mong.repository.MongRepository;
+import com.paymong.management.mong.service.ChargeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,18 @@ import java.time.LocalTime;
 public class SleepService {
 
     private final MongRepository mongRepository;
-
+    private final ChargeService chargeService;
     private final SleepScheduler sleepScheduler;
     @Transactional
     public Boolean sleepMong(Long mongId) throws Exception{
         Mong mong = mongRepository.findByMongId(mongId).orElseThrow(() -> new NotFoundMongException());
+
+        if(mong.getStateCode().equals(MongConditionCode.DIE.getCode()) ||
+           mong.getStateCode().equals(MongConditionCode.GRADUATE.getCode()) ||
+           mong.getStateCode().equals(MongConditionCode.EVOLUTION_READY.getCode())){
+            log.info("지금은 재우거나 깨울 수 없습니다. mongId : {}", mongId);
+            return false;
+        }
 
         if(checkTime(mong.getSleepStart(),mong.getSleepEnd())){
             log.info("지금은 깨울 수 없습니다. mongId = {}", mongId);
@@ -35,6 +43,7 @@ public class SleepService {
 
         }else{ // 자는 상태가 아닐 땐 재우기
             log.info("잠 재울 준비중입니다. mongId = {}", mongId);
+            chargeService.discharging(mong.getMemberId());
             sleepScheduler.sleepScheduler(mongId);
         }
 

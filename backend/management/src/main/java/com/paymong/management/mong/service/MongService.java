@@ -47,6 +47,7 @@ public class MongService {
     private final WebSocketService webSocketService;
     private final MapScheduler mapScheduler;
     private final SleepScheduler sleepScheduler;
+    private final ChargeService chargeService;
 
     @Transactional
     public AddMongResVo addMong(AddMongReqVo addMongReqVo) throws Exception{
@@ -130,7 +131,9 @@ public class MongService {
 
             mong.setCode(commonCodeDto.getCode());
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
-
+            if(mong.getWeight() == 99){
+                mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
+            }
             // collect service에 새로운 몽 추가
             clientService.addMong(String.valueOf(mong.getMemberId()),
                     new FindCommonCodeDto(commonCodeDto.getCode()));
@@ -151,6 +154,10 @@ public class MongService {
 
             mong.setCode(commonCodeDto.getCode());
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
+
+            if(mong.getWeight() == 99){
+                mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
+            }
 
             if(findMongLevelCodeDto.getType() == 3){
                 // 타입 3이면 졸업
@@ -179,6 +186,10 @@ public class MongService {
 
             mong.setCode(commonCodeDto.getCode());
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
+
+            if(mong.getWeight() == 99){
+                mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
+            }
 
             // collect service에 새로운 몽 추가
             clientService.addMong(String.valueOf(mong.getMemberId()),
@@ -336,13 +347,34 @@ public class MongService {
         mapScheduler.startScheduler(mapCodeWsDto.getMemberId());
     }
 
-    public void sendThing(SendThingsResDto sendThingsResDto){
+    public void sendThing(SendThingsResDto sendThingsResDto) throws NotFoundMongException {
         LOGGER.info("things 코드를 전송합니다 : memberId : {}", sendThingsResDto.getMemberId());
+        if(sendThingsResDto.getThingsCode().equals("ST002")){
+            chargeService.charging(sendThingsResDto.getMemberId());
+        }else if(sendThingsResDto.getThingsCode().equals("ST003")){
+            chargeService.discharging(sendThingsResDto.getMemberId());
+        }
         webSocketService.sendThings(sendThingsResDto, WebSocketCode.THINGS);
     }
 
     public void sendPoint(SendPointResDto sendPointResDto){
         LOGGER.info("point 코드를 전송합니다 : memberId : {}", sendPointResDto.getMemberId());
         webSocketService.sendPoint(sendPointResDto, WebSocketCode.POINT);
+    }
+
+    @Transactional
+    public void changeState(AdminStateDto adminStateDto){
+        Mong mong = mongRepository.findByMongId(adminStateDto.getMongId()).get();
+
+        mong.setStateCode(adminStateDto.getStateCode());
+        webSocketService.sendStatus(mong, WebSocketCode.SUCCESS);
+    }
+
+    @Transactional
+    public void changePoop(AdminPoopDto adminPoopDto){
+        Mong mong = mongRepository.findByMongId(adminPoopDto.getMongId()).get();
+
+        mong.setPoopCount(adminPoopDto.getPoopCount());
+        webSocketService.sendStatus(mong, WebSocketCode.SUCCESS);
     }
 }
