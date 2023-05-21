@@ -51,7 +51,7 @@ public class InformationController {
                         .mongId(0L)
                         .name("")
                         .mongCode("444")
-                        .stateCode("0")
+                        .stateCode("")
                         .poopCount(0)
                         .mapCode("")
                         .build());
