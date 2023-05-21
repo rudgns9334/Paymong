@@ -45,7 +45,7 @@ public class InformationController {
 
         try {
             // 한번도 몽 생성안 한 경우
-            if (mongIdStr == null) {
+            if ("".equals(mongIdStr)) {
                 return ResponseEntity.ok()
                     .body(FindMongDto.builder()
                         .mongId(0L)
