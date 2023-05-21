@@ -50,7 +50,7 @@ public class InformationController {
                     .body(FindMongDto.builder()
                         .mongId(0L)
                         .name("")
-                        .mongCode("444")
+                        .mongCode("CH444")
                         .stateCode("")
                         .poopCount(0)
                         .mapCode("")
