@@ -129,7 +129,8 @@ public class MongService {
 
             CommonCodeDto commonCodeDto = clientService.findMongLevelCode(findMongLevelCodeDto);
 
-            mong.setCode(commonCodeDto.getCode());
+//            mong.setCode(commonCodeDto.getCode());
+            mong.setCode("CH100");
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
             if(mong.getWeight() == 99){
                 mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
