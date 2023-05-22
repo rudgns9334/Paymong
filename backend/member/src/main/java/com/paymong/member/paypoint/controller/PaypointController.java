@@ -7,6 +7,7 @@ import com.paymong.member.global.exception.NotFoundMapCodeException;
 import com.paymong.member.global.exception.NotFoundMapException;
 import com.paymong.member.global.exception.NotFoundMymapException;
 import com.paymong.member.global.response.ErrorResponse;
+import com.paymong.member.paypoint.dto.request.AddPaypointAdminReqDto;
 import com.paymong.member.paypoint.dto.request.AddPaypointReqDto;
 import com.paymong.member.paypoint.dto.request.FindTotalPayReqDto;
 import com.paymong.member.paypoint.dto.response.AddPaypointResDto;
@@ -52,6 +53,19 @@ public class PaypointController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(MymapStateCode.MYMAP_ERROR));
         }
         catch (Exception e){
+            log.info("code : {}, message : {}", PaypointStateCode.UNKNOWN.getCode(), PaypointStateCode.UNKNOWN.name());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(PaypointStateCode.UNKNOWN));
+        }
+    }
+
+    @PostMapping("/admin")
+    public ResponseEntity<Object> addPaypointAdmin(@RequestBody AddPaypointAdminReqDto addPaypointAdminReqDto){
+        try {
+            String memberIdStr = addPaypointAdminReqDto.getMemberIdStr();
+            AddPaypointReqDto addPaypointReqDto = new AddPaypointReqDto(addPaypointAdminReqDto.getContent(), addPaypointAdminReqDto.getPrice());
+            AddPaypointResDto addPayResDto = paypointService.addPaypoint(memberIdStr, addPaypointReqDto);
+            return ResponseEntity.status(HttpStatus.OK).body(addPayResDto);
+        }catch (Exception e){
             log.info("code : {}, message : {}", PaypointStateCode.UNKNOWN.getCode(), PaypointStateCode.UNKNOWN.name());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(PaypointStateCode.UNKNOWN));
         }
