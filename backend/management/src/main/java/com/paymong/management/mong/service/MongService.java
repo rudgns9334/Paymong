@@ -136,8 +136,10 @@ public class MongService {
                 mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
             }
             // collect service에 새로운 몽 추가
+//            clientService.addMong(String.valueOf(mong.getMemberId()),
+//                    new FindCommonCodeDto(commonCodeDto.getCode()));
             clientService.addMong(String.valueOf(mong.getMemberId()),
-                    new FindCommonCodeDto(commonCodeDto.getCode()));
+                    new FindCommonCodeDto("CH100"));
 
             findMongLevelCodeDto.setType(Integer.parseInt(commonCodeDto.getCode().substring(4,5)));
 
@@ -150,10 +152,9 @@ public class MongService {
             CommonCodeDto commonCodeDto = clientService.findMongLevelCode(findMongLevelCodeDto);
 
             // collect service에 새로운 몽 추가
-//            clientService.addMong(String.valueOf(mong.getMemberId()),
-//                    new FindCommonCodeDto(commonCodeDto.getCode()));
             clientService.addMong(String.valueOf(mong.getMemberId()),
-                    new FindCommonCodeDto("CH100"));
+                    new FindCommonCodeDto(commonCodeDto.getCode()));
+
 
             mong.setCode(commonCodeDto.getCode());
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
