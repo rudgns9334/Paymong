@@ -20,6 +20,8 @@ public class Pay {
             return ret;
         if( (ret = isMovie(brand))!=null)
             return ret;
+        if( (ret = isGuitar(brand))!=null)
+            return ret;
         return null;
     }
 
@@ -44,6 +46,8 @@ public class Pay {
             return "하이오커피";
         if( brand.contains("블루샥") )
             return "블루샥";
+        if( brand.contains("더벤티") )
+            return "더벤티";
         if( brand.contains("커피") || brand.contains("카페") || brand.contains("coffee") || brand.contains("cafe"))
             return "카페";
 
@@ -61,6 +65,8 @@ public class Pay {
             return "세븐일레븐";
         if( brand.contains("이스턴웰스"))
             return "싸피자판기";
+        if( brand.contains("스낵") && brand.contains("24") )
+            return "스낵24";
         return null;
     }
     
@@ -105,6 +111,10 @@ public class Pay {
             return "아디다스";
         if( brand.contains("다이소") || brand.contains("주식회사 신세대"))
             return "다이소";
+        if( brand.contains("무신사"))
+            return "무신사";
+        if( brand.contains("노브랜드"))
+            return "노브랜드";
         return null;
     }
 
@@ -129,6 +139,14 @@ public class Pay {
             return "설빙";
         if( brand.contains("베스킨") || brand.contains("배스킨"))
             return "배스킨라빈스31";
+        return null;
+    }
+
+    public static String isGuitar(String brand){
+        if( brand.contains("병원"))
+            return "병원";
+        if( brand.contains("아난티코브") || brand.contains("힐튼") )
+            return "아난티코브";
         return null;
     }
 }
