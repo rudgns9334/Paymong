@@ -66,7 +66,7 @@ public class Pay {
         if( brand.contains("이스턴웰스"))
             return "싸피자판기";
         if( brand.contains("스낵") && brand.contains("24") )
-            return "스낵24";
+            return "싸피자판기";
         return null;
     }
     
