@@ -129,17 +129,17 @@ public class MongService {
 
             CommonCodeDto commonCodeDto = clientService.findMongLevelCode(findMongLevelCodeDto);
 
-            mong.setCode(commonCodeDto.getCode());
-            // mong.setCode("CH100");
+//            mong.setCode(commonCodeDto.getCode());
+            mong.setCode("CH100");
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
             if(mong.getWeight() == 99){
                 mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
             }
             // collect service에 새로운 몽 추가
-            clientService.addMong(String.valueOf(mong.getMemberId()),
-                    new FindCommonCodeDto(commonCodeDto.getCode()));
-            // clientService.addMong(String.valueOf(mong.getMemberId()),
-            //         new FindCommonCodeDto("CH100"));
+//            clientService.addMong(String.valueOf(mong.getMemberId()),
+//                    new FindCommonCodeDto(commonCodeDto.getCode()));
+             clientService.addMong(String.valueOf(mong.getMemberId()),
+                     new FindCommonCodeDto("CH100"));
 
             findMongLevelCodeDto.setType(Integer.parseInt(commonCodeDto.getCode().substring(4,5)));
 
