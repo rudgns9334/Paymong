@@ -130,6 +130,7 @@ public class MongService {
             CommonCodeDto commonCodeDto = clientService.findMongLevelCode(findMongLevelCodeDto);
 
             mong.setCode(commonCodeDto.getCode());
+//            mong.setCode("CH100");
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
             if(mong.getWeight() == 99){
                 mong.setStrength(mong.getStrength() - 10 < 0 ? 0 : mong.getStrength() - 10);
@@ -137,6 +138,8 @@ public class MongService {
             // collect service에 새로운 몽 추가
             clientService.addMong(String.valueOf(mong.getMemberId()),
                     new FindCommonCodeDto(commonCodeDto.getCode()));
+//             clientService.addMong(String.valueOf(mong.getMemberId()),
+//                     new FindCommonCodeDto("CH100"));
 
             findMongLevelCodeDto.setType(Integer.parseInt(commonCodeDto.getCode().substring(4,5)));
 
@@ -151,6 +154,7 @@ public class MongService {
             // collect service에 새로운 몽 추가
             clientService.addMong(String.valueOf(mong.getMemberId()),
                     new FindCommonCodeDto(commonCodeDto.getCode()));
+
 
             mong.setCode(commonCodeDto.getCode());
             mong.setWeight(mong.getWeight() + 10 > 99 ? 99 : mong.getWeight() + 10);
@@ -310,25 +314,25 @@ public class MongService {
         int tier = Integer.parseInt(mong.getCode().substring(3,4));
 
         if(tier == 3){
-            if(point >= 50000){
+            if(point >= 5000){
                 findMongLevelCodeDto.setTier(3);
             }else{
                 findMongLevelCodeDto.setTier(2);
             }
         }else if(tier == 2){
-            if(point >= 40000){
+            if(point >= 4000){
                 findMongLevelCodeDto.setTier(2);
             }else{
                 findMongLevelCodeDto.setTier(1);
             }
         }else if(tier == 1){
-            if(point >= 30000){
+            if(point >= 3000){
                 findMongLevelCodeDto.setTier(1);
             }else{
                 findMongLevelCodeDto.setTier(0);
             }
         }else if(tier == 0){
-            if(point >= 20000){
+            if(point >= 2000){
                 findMongLevelCodeDto.setTier(0);
             }else{
                 findMongLevelCodeDto.setTier(0);
