@@ -18,10 +18,14 @@ import java.util.concurrent.TimeUnit
 
 interface Api {
     companion object {
-        private const val BASE_URL = "http://dev.paymong.com:8080"
-        private const val LOGIN_URL = "http://dev.paymong.com:8080/auth/login"
-        private const val REISSUE_URL = "http://dev.paymong.com:8080/auth/reissue"
-        private const val WATCH_LOGIN_URL = "http://dev.paymong.com:8080/auth/login/watch"
+//        private const val BASE_URL = "http://dev.paymong.com:8080"
+//        private const val LOGIN_URL = "http://dev.paymong.com:8080/auth/login"
+//        private const val REISSUE_URL = "http://dev.paymong.com:8080/auth/reissue"
+//        private const val WATCH_LOGIN_URL = "http://dev.paymong.com:8080/auth/login/watch"
+        private const val BASE_URL = "http://k8e103.p.ssafy.io:8080"
+        private const val LOGIN_URL = "http://k8e103.p.ssafy.io:8080/auth/login"
+        private const val REISSUE_URL = "http://k8e103.p.ssafy.io:8080/auth/reissue"
+        private const val WATCH_LOGIN_URL = "http://k8e103.p.ssafy.io:8080/auth/login/watch"
         private const val TIMEOUT_LIMIT = 180L
 
 

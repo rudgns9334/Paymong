@@ -17,7 +17,8 @@ class BattleSocketService {
             .build()
     }
 
-    private val url = "ws://dev.paymong.com:11050/battle"
+//    private val url = "ws://dev.paymong.com:11050/battle"
+    private val url = "ws://k8e103.p.ssafy.io:11050/battle"
     private lateinit var socket: OkHttpClient
     private lateinit var webSocket: WebSocket
 

@@ -23,7 +23,8 @@ class ManagementSocketService {
             .build()
     }
 
-    private val url = "ws://dev.paymong.com:8080/management/ws"
+//    private val url = "ws://dev.paymong.com:8080/management/ws"
+    private val url = "ws://k8e103.p.ssafy.io:8080/management/ws"
     private lateinit var socket: OkHttpClient
     private lateinit var webSocket: WebSocket
 
